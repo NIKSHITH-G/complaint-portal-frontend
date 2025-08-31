@@ -8,6 +8,7 @@ A simple frontend for the Complaint Registration Portal.
 - Responsive split-screen layout
 - Secure login & signup flow (frontend only, backend later)
 
+
 ## Tech Stack
 - HTML
 - CSS
