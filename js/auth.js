@@ -68,6 +68,17 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
   const msg = document.getElementById("loginMessage");
 
   try {
+    // ===== Dummy login fallback =====
+    if (email === "test@demo.com" && password === "123456") {
+      msg.textContent = "Login successful (dummy user)!";
+      msg.classList.remove("error");
+      msg.style.color = "green";
+      localStorage.setItem("token", "dummy-jwt-token");
+      window.location.href = "/dashboard.html";
+      return;
+    }
+    // ===== End dummy login =====
+
     const response = await fetch(API.LOGIN, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

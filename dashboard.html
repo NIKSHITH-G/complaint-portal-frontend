@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Complaint Portal</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+  <div class="dashboard-layout">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Complaint Portal</h2>
+      <nav>
+        <ul>
+          <li><a href="#" id="navComplaints" class="active"><i class="fas fa-list"></i> My Complaints</a></li>
+          <li><a href="#" id="navFile"><i class="fas fa-edit"></i> File Complaint</a></li>
+          <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+          <li><a href="faqs.html"><i class="fas fa-question-circle"></i> FAQs</a></li>
+          <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="user-info">
+          <span id="welcomeUser">Welcome, <span id="userName">User</span></span>
+        </div>
+        <div class="topbar-actions">
+          <button id="langSwitch" title="Change Language"><i class="fas fa-globe"></i></button>
+          <button id="darkModeToggle" title="Dark Mode"><i class="fas fa-moon"></i></button>
+          <button id="fontSizeToggle" title="Increase Font">A+</button>
+        </div>
+      </header>
+
+      <!-- File Complaint -->
+      <section id="file-complaint" class="card hidden">
+        <h2><i class="fas fa-edit"></i> File a New Complaint</h2>
+        <form id="complaintForm">
+
+          <div class="form-row" id="identityFields">
+            <div class="input-group">
+              <span class="icon"><i class="fas fa-user"></i></span>
+              <input type="text" id="complaintName" placeholder="Your Name" required>
+            </div>
+            <div class="input-group">
+              <span class="icon"><i class="fas fa-phone"></i></span>
+              <input type="text" id="complaintContact" placeholder="Phone or Email" required>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <span class="icon"><i class="fas fa-list"></i></span>
+            <select id="complaintCategory" required>
+              <option value="">Select Category</option>
+              <option>Theft</option>
+              <option>Harassment</option>
+              <option>Public Nuisance</option>
+            </select>
+          </div>
+
+          <label class="textarea-label">
+            <span class="icon"><i class="fas fa-align-left"></i></span>
+            <textarea id="complaintDescription" placeholder="Complaint Details" required></textarea>
+          </label>
+
+          <div class="input-group location-group">
+            <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
+            <input type="text" id="complaintLocation" placeholder="Enter Location">
+            <button type="button" id="detectLocationBtn">Auto-detect</button>
+          </div>
+
+          <!-- File Upload -->
+          <div class="file-upload" onclick="document.getElementById('complaintFiles').click()">
+            <i class="fas fa-upload"></i> Drag & Drop files or <span class="browse-link">click to browse</span>
+          </div>
+          <input type="file" id="complaintFiles" multiple hidden>
+
+          <!-- Checkbox -->
+          <label class="checkbox-label">
+            <input type="checkbox" id="anonymousComplaint"> Submit anonymously
+          </label>
+
+          <button type="submit" class="btn-blue">Submit Complaint</button>
+        </form>
+      </section>
+
+      <!-- My Complaints -->
+      <section id="complaints" class="card">
+        <h2><i class="fas fa-list"></i> My Complaints</h2>
+        <input type="text" id="searchComplaints" placeholder="Search complaints..." />
+        <table id="complaintsTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Date Filed</th>
+              <th>Response</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="6" class="table-message">No complaints yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
