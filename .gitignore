@@ -1,0 +1,14 @@
+# Ignore system/editor files
+.DS_Store
+.vscode/
+.idea/
+
+# Ignore node modules (if you add npm later)
+node_modules/
+
+# Ignore build outputs
+dist/
+build/
+
+# Logs
+*.log
