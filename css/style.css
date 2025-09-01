@@ -110,12 +110,14 @@ body {
   position: relative;
 }
 
-/* Form Switch - Instant */
-form {
+/* Only toggle login/signup forms */
+#loginForm, 
+#signupForm {
   display: none;
 }
 
-form.active {
+#loginForm.active,
+#signupForm.active {
   display: block;
   position: relative;
 }
