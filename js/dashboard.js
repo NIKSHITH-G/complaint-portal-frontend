@@ -1,30 +1,3 @@
-// Check login token
-const token = localStorage.getItem("token");
-
-if (!token) {
-  // No token → go back to login
-  window.location.href = "index.html";
-} else if (token === "dummy-jwt-token") {
-  // Skip verification for dummy user
-  console.log("Logged in as dummy user");
-} else {
-  // Verify with backend
-  fetch("api/auth/verify", {
-    method: "GET",
-    headers: { "Authorization": "Bearer " + token }
-  })
-  .then(res => {
-    if (res.status === 401) {
-      localStorage.removeItem("token");
-      window.location.href = "index.html";
-    }
-  })
-  .catch(() => {
-    localStorage.removeItem("token");
-    window.location.href = "index.html";
-  });
-}
-
 function logout() {
   localStorage.removeItem("token");
   window.location.href = "index.html";
@@ -142,9 +115,6 @@ async function loadComplaints() {
   }
 }
 
-// Init
-window.onload = () => { loadComplaints(); };
-
 // Sidebar navigation toggle
 document.getElementById("navComplaints").addEventListener("click", (e) => {
   e.preventDefault();
@@ -190,3 +160,33 @@ document.getElementById("darkModeToggle").addEventListener("click", () => {
 document.getElementById("fontSizeToggle").addEventListener("click", () => {
   document.body.classList.toggle("font-large");
 });
+
+// ✅ Token check moved into onload
+window.onload = () => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "index.html";
+    return;
+  } else if (token === "dummy-jwt-token") {
+    console.log("Logged in as dummy user");
+  } else {
+    fetch("api/auth/verify", {
+      method: "GET",
+      headers: { "Authorization": "Bearer " + token }
+    })
+    .then(res => {
+      if (res.status === 401) {
+        localStorage.removeItem("token");
+        window.location.href = "index.html";
+      }
+    })
+    .catch(() => {
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+    });
+  }
+
+  // load complaints after token validation
+  loadComplaints();
+};

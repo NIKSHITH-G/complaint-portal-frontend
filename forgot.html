@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forgot Password - Complaint Portal</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="split left">
+    <div class="brand">
+      <h1>Complaint Registration Portal</h1>
+      <p class="tagline">Reset your password with OTP</p>
+    </div>
+  </div>
+
+  <div class="split right">
+    <div class="form-container">
+      <form id="forgotForm">
+        <h2>Forgot Password</h2>
+
+        <!-- Step 1: Request OTP -->
+        <div id="step1">
+          <div class="input-group">
+            <span class="icon"><i class="fas fa-envelope"></i></span>
+            <input type="email" id="forgotEmail" placeholder="Enter your email" required>
+          </div>
+          <button type="submit" class="btn-blue">Send OTP</button>
+        </div>
+
+        <!-- Step 2: Verify OTP + Reset Password -->
+        <div id="step2" style="display:none;">
+          <div class="input-group">
+            <span class="icon"><i class="fas fa-key"></i></span>
+            <input type="text" id="otpCode" placeholder="Enter OTP" required>
+          </div>
+          <div class="input-group">
+            <span class="icon"><i class="fas fa-lock"></i></span>
+            <input type="password" id="newPassword" placeholder="New Password" required>
+          </div>
+          <div class="input-group">
+            <span class="icon"><i class="fas fa-lock"></i></span>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+          </div>
+          <button type="button" id="resetBtn" class="btn-blue">Reset Password</button>
+        </div>
+
+        <div class="switch">
+          Remembered? <a href="index.html">Sign In</a>
+        </div>
+        <div id="forgotMessage" class="message"></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/forgot.js"></script>
+</body>
+</html>
