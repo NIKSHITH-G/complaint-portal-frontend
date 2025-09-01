@@ -2,23 +2,23 @@
 const token = localStorage.getItem("token");
 
 if (!token) {
-  // No token, redirect to login
   window.location.href = "/index.html";
+} else if (token === "dummy-jwt-token") {
+  // Skip verification for dummy user
+  console.log("Logged in as dummy user");
 } else {
-  // Optional: verify token with backend
+  // Verify with backend
   fetch("/api/auth/verify", {
     method: "GET",
     headers: { "Authorization": "Bearer " + token }
   })
   .then(res => {
     if (res.status === 401) {
-      // Token invalid or expired
       localStorage.removeItem("token");
       window.location.href = "/index.html";
     }
   })
   .catch(() => {
-    // If server is unreachable, still force login for safety
     localStorage.removeItem("token");
     window.location.href = "/index.html";
   });
