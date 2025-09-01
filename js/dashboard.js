@@ -1,8 +1,28 @@
 // Check login token
-if (!localStorage.getItem("token")) {
-  window.location.href = "/index.html";
-}
+const token = localStorage.getItem("token");
 
+if (!token) {
+  // No token, redirect to login
+  window.location.href = "/index.html";
+} else {
+  // Optional: verify token with backend
+  fetch("/api/auth/verify", {
+    method: "GET",
+    headers: { "Authorization": "Bearer " + token }
+  })
+  .then(res => {
+    if (res.status === 401) {
+      // Token invalid or expired
+      localStorage.removeItem("token");
+      window.location.href = "/index.html";
+    }
+  })
+  .catch(() => {
+    // If server is unreachable, still force login for safety
+    localStorage.removeItem("token");
+    window.location.href = "/index.html";
+  });
+}
 function logout() {
   localStorage.removeItem("token");
   window.location.href = "/index.html";
