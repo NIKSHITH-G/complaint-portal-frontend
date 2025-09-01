@@ -74,7 +74,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
       msg.classList.remove("error");
       msg.style.color = "green";
       localStorage.setItem("token", "dummy-jwt-token");
-      window.location.href = "/dashboard.html";
+      window.location.href = "dashboard.html";
       return;
     }
     // ===== End dummy login =====
