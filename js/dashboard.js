@@ -2,30 +2,32 @@
 const token = localStorage.getItem("token");
 
 if (!token) {
-  window.location.href = "/index.html";
+  // No token → go back to login
+  window.location.href = "index.html";
 } else if (token === "dummy-jwt-token") {
   // Skip verification for dummy user
   console.log("Logged in as dummy user");
 } else {
   // Verify with backend
-  fetch("/api/auth/verify", {
+  fetch("api/auth/verify", {
     method: "GET",
     headers: { "Authorization": "Bearer " + token }
   })
   .then(res => {
     if (res.status === 401) {
       localStorage.removeItem("token");
-      window.location.href = "/index.html";
+      window.location.href = "index.html";
     }
   })
   .catch(() => {
     localStorage.removeItem("token");
-    window.location.href = "/index.html";
+    window.location.href = "index.html";
   });
 }
+
 function logout() {
   localStorage.removeItem("token");
-  window.location.href = "/index.html";
+  window.location.href = "index.html";
 }
 
 // Detect location
